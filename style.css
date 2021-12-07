@@ -1,0 +1,212 @@
+/**********************************************************************/
+/*  PROYECTO RESERVAS             */
+/*  EQUIPO   GRECIA                 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 1px solid red;
+}
+:root {
+  --color-fondo: hsl(0, 5%, 95%);
+
+  --color-primario: hsl(0, 0%, 0%);
+  --color-primario-claro: hsl(0, 0%, 50%);
+  --color-primario-muy-claro: hsl(0, 0%, 80%);
+  --color-sobre-primario: hsl(2, 100%, 100%);
+
+  --color-secundario: hsl(70, 40%, 90%);
+  --color-sobre-secundario: hsl(2, 0%, 0%);
+
+  --fuente-primaria: sans-serif;
+  --fuente-secuendaria: serif;
+
+  --color-pantalla: hsl(0, 100%, 100%);
+  --color-asiento-libre: hsl(0, 50%, 100%);
+  --color-asiento-ocupado: hsl(0, 50%, 80%);
+  --color-asiento-seleccionado: hsl(0, 50%, 40%);
+
+  --dimension-asiento: 1.5em;
+}
+
+/**********************************************************************/
+
+body {
+  height: 100vh;
+  background-color: var(--color-fondo);
+}
+
+/**********************************************************************/
+
+.panel {
+  background-color: var(--color-secundario);
+  display:grid;
+  grid-template-areas: "equipo"
+                       "datosPelicula"
+                       "leyenda"
+                       "sala"
+                       "reserva"
+                       "controles"
+  ;
+
+  row-gap: 10px;
+  width: clamp(600px, 80vw, 800px);
+}
+
+/**********************************************************************/
+
+.titulo {
+  grid-area: equipo;
+  padding: 0.2em 0.5em;
+  margin-top: 1em;
+
+  background-color: var(--color-primario);
+  color: var(--color-sobre-primario);
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+/**********************************************************************/
+
+.cartel {
+  grid-area:datosPelicula;
+  display:grid;
+  background-color: var(--color-primario);
+  color: var(--color-sobre-primario);
+  grid-template-areas: "pelicula pelicula"
+                       "director director"
+                       "cine sala"
+                       "hora fecha"
+                       "precio precio"
+  ;
+
+}
+
+
+.cartel__pelicula {
+  grid-area: pelicula;
+}
+
+.cartel__director {
+  grid-area: director;
+}
+
+.cartel__cine {
+  grid-area: cine;
+}
+.cartel__hora {
+  grid-area: hora;
+}
+
+.cartel__fecha {
+  grid-area: fecha;
+}
+
+.cartel__sala {
+  grid-area: sala;
+}
+.cartel__precio {
+  grid-area: precio;
+}
+/*
+.cartel__precio-cantidad {
+} 
+*/
+
+/**********************************************************************/
+
+.leyendas {
+  grid-area:leyenda;
+  display:grid;
+  grid-template-columns: auto auto auto;
+  background-color: var(--color-primario);
+  color: var(--color-sobre-primario);
+
+  list-style-type: none;
+}
+
+/* .leyendas__item {
+}
+
+.leyendas__leyenda {
+} */
+
+/**********************************************************************/
+
+.sala {
+  grid-area:sala;
+  background-color: var(--color-primario);
+}
+
+.sala__pantalla {
+  background-color: var(--color-pantalla);
+}
+
+/* .sala__aforo {
+} */
+
+/**********************************************************************/
+
+.reserva {
+  grid-area:reserva;
+  display:grid;
+  grid-template-columns: auto auto;
+  background-color: var(--color-primario);
+  color: var(--color-sobre-primario);
+}
+
+.reserva__dato-numerico {
+  background-color: var(--color-primario-claro);
+  color: var(--color-sobre-primario);
+
+  /* Anchura para admitir números de dos cifras */
+  display: inline-block;
+  width: 2.5em;
+  text-align: center;
+}
+
+/**********************************************************************/
+
+.controles {
+  grid-area:"controles";
+  background-color: var(--color-primario);
+  color: var(--color-sobre-primario);
+  text-align: center;
+}
+
+.controles__boton {
+  padding: 5px 10px;
+}
+
+/**********************************************************************/
+
+.asiento {
+  width: var(--dimension-asiento);
+  height: var(--dimension-asiento);
+  background-color: var(--color-asiento-libre);
+
+  border: 2px solid black;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.asiento--ocupado {
+  background-color: var(--color-asiento-ocupado);
+}
+
+.asiento--seleccionado {
+  background-color: var(--color-asiento-seleccionado);
+}
+
+/* No es factible reservar un asiento ocupado. 
+   Para reforzar esta restricción se modifica 
+   el estilo al sobrevolar con el cursor sobre 
+   un asiento no ocupado (i.e. libre o selecciodo) 
+*/
+.sala .asiento:hover:not(.asiento--ocupado) {
+  cursor: pointer;
+}
