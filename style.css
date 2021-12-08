@@ -35,6 +35,8 @@
 body {
   height: 100vh;
   background-color: var(--color-fondo);
+  display:flex;
+  justify-content: center;
 }
 
 /**********************************************************************/
@@ -42,15 +44,16 @@ body {
 .panel {
   background-color: var(--color-secundario);
   display:grid;
-  grid-template-areas: "equipo"
-                       "datosPelicula"
-                       "leyenda"
-                       "sala"
-                       "reserva"
-                       "controles"
+  grid-template-areas: ". equipo ."
+                       ". datosPelicula ."
+                       ". leyenda ."
+                       ". sala ."
+                       ". reserva ."
+                       ". controles ."
   ;
+  grid-template-rows: 4rem 12rem 2.5rem 10rem 1.5rem 2rem;
 
-  row-gap: 10px;
+  row-gap: 1rem;
   width: clamp(600px, 80vw, 800px);
 }
 
@@ -60,7 +63,6 @@ body {
   grid-area: equipo;
   padding: 0.2em 0.5em;
   margin-top: 1em;
-
   background-color: var(--color-primario);
   color: var(--color-sobre-primario);
   justify-items: center;
@@ -77,40 +79,52 @@ body {
   display:grid;
   background-color: var(--color-primario);
   color: var(--color-sobre-primario);
-  grid-template-areas: "pelicula pelicula"
-                       "director director"
-                       "cine sala"
-                       "hora fecha"
-                       "precio precio"
+  column-gap: 1rem;
+  grid-template-areas: ". pelicula pelicula ."
+                       ". director director ."
+                       ". cine sala ."
+                       ". hora fecha ."
+                       ". precio precio ."
   ;
+  border-radius:15px;
+  margin: 1%;
+  align-items: center;
+  row-gap: 1rem;
 
 }
 
 
 .cartel__pelicula {
   grid-area: pelicula;
+  text-align:center;
 }
 
 .cartel__director {
   grid-area: director;
+  text-align:center;
 }
 
 .cartel__cine {
   grid-area: cine;
+  text-align:center;
 }
 .cartel__hora {
   grid-area: hora;
+  text-align:center;
 }
 
 .cartel__fecha {
   grid-area: fecha;
+  text-align:center;
 }
 
 .cartel__sala {
   grid-area: sala;
+  text-align:center;
 }
 .cartel__precio {
   grid-area: precio;
+  text-align:center; 
 }
 /*
 .cartel__precio-cantidad {
@@ -128,18 +142,20 @@ body {
 
   list-style-type: none;
 }
-
-/* .leyendas__item {
+ .leyendas__item {
+  text-align:center;
 }
 
 .leyendas__leyenda {
-} */
+  text-align:center;
+}
 
 /**********************************************************************/
 
 .sala {
   grid-area:sala;
   background-color: var(--color-primario);
+  border-radius:20px;
 }
 
 .sala__pantalla {
@@ -167,15 +183,18 @@ body {
   display: inline-block;
   width: 2.5em;
   text-align: center;
+
 }
 
 /**********************************************************************/
 
 .controles {
-  grid-area:"controles";
+  
+  grid-area:controles;
   background-color: var(--color-primario);
   color: var(--color-sobre-primario);
   text-align: center;
+
 }
 
 .controles__boton {
