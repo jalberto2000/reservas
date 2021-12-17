@@ -72,7 +72,7 @@ const valorClassDeAsientoSELECCIONADO = "asiento asiento--seleccionado";
 
 // Variables de acceso a elementos HTML interactivos
 const aforo = document.getElementById("aforo");
-aforo.addEventListener("click", (e) => ___actualizaTipoDeAsiento(e.target));
+aforo.addEventListener("click", (e) => actualizaTipoDeAsiento(e.target));
 
 const cancelar = document.getElementById("cancelar");
 cancelar.addEventListener("click", cancelarReservas);
@@ -105,7 +105,7 @@ function estableceConfiguracionDeAsientosDisponibles() {
   // Accedemos al almacen local para comprobar si hay registrado un item
   // con una configuración de asientos disponibles u ocupados
 
-  const asientos = ___recuperaAsientosDelAlmacenLocal();
+  const asientos = recuperaAsientosDelAlmacenLocal();
 
   if (asientos == null || asientos.length == 0) {
     // Si no hay ningún item en LocalStoriage se genera y almacena localmente una disposición de asientos
@@ -115,12 +115,12 @@ function estableceConfiguracionDeAsientosDisponibles() {
       0,
       1
     );
-    ___actualizaAsientosEnAlmacenLocal(asientosAleatorios);
+    actualizaAsientosEnAlmacenLocal(asientosAleatorios);
   }
 }
 
 function generaAforoHTML() {
-  const asientos = ___recuperaAsientosDelAlmacenLocal();
+  const asientos = recuperaAsientosDelAlmacenLocal();
 
   const aforoHTML = asientos
     .map((asiento, indice) => {
@@ -166,7 +166,7 @@ function generaArrayDeNumerosAleatorio(num, min, max) {
 
 function actualizaPanelDeInformacion() {
   // El panel muestra el número de asientos seleccionados y el precio total de la reserva
-  const asientos = ___recuperaAsientosDelAlmacenLocal();
+  const asientos = recuperaAsientosDelAlmacenLocal();
 
   const numeroDeAsientosSeleccionados = asientos.filter(
     (a) => a == SELECCIONADO
@@ -184,7 +184,7 @@ function actualizaPanelDeInformacion() {
 
 //  Funciones para la cancelación y pago de reservas
 function cancelarReservas() {
-  const asientos = ___recuperaAsientosDelAlmacenLocal();
+  const asientos = recuperaAsientosDelAlmacenLocal();
   asientos.forEach((elemento, indice) => {
     if (elemento == SELECCIONADO) {
       asientos[indice] = LIBRE;
@@ -197,11 +197,11 @@ function cancelarReservas() {
 
   contador.innerText = "0";
   precioTotal.innerHTML = "0";
-  ___actualizaAsientosEnAlmacenLocal(asientos);
+  actualizaAsientosEnAlmacenLocal(asientos);
 }
 
 function pagarReservas() {
-  const asientos = ___recuperaAsientosDelAlmacenLocal();
+  const asientos = recuperaAsientosDelAlmacenLocal();
 
   asientos.forEach((elemento, indice) => {
     if (elemento == SELECCIONADO) {
@@ -214,32 +214,49 @@ function pagarReservas() {
 
   contador.innerText = "0";
   precioTotal.innerHTML = "0";
-  ___actualizaAsientosEnAlmacenLocal(asientos);
+  actualizaAsientosEnAlmacenLocal(asientos);
 }
 
 //  Funciones para efectuar la reserva (seleccion de asientos y espectaculo)
-function ___actualizaTipoDeAsiento(asientoHTML) {
+function actualizaTipoDeAsiento(asientoHTML) {
   // Para efectuar la actualizacion debemos:
   //  recuperar del almacen local el item asientos
-  //  identificar (data-index) el asiento al que está vinculado el parametro asientoHTML
-  // Las actualizaciones factibles son aquellas que se efectúan sobre asientos
-  //   a) libres (que pasan a estar seleccionados)
-  //   b) seleccionados (que pasan a estar libres)
-  // La acción implica los siguientes cambios:
-  //   - modicamos el estilo del asiento seleccionado para que ilustre su tipo
-  //   - se actualiza el almacen local (LocalStorage) para reflejar el cambio en el asiento seleccionado
-  //   - se actualiza el panel informativo a partir de la información actualizada en el almacen local
+  //  identificar (data-index) el asiento al que está vinculado el parametro asientoHTML 
+  indice = asientoHTML.getAttribute("data-index");
+  if (indice!=null){
+    // Las actualizaciones factibles son aquellas que se efectúan sobre asientos
+    // a) libres (que pasan a estar seleccionados)
+    if(tipoDeAsiento(asientoHTML)==LIBRE){
+      // La acción implica los siguientes cambios:
+      // Modicamos el estilo del asiento seleccionado para que ilustre su tipo
+      asientos[indice]=SELECCIONADO;
+      asientoHTML.classList=valorClassDeAsientoSELECCIONADO;
+    }
+    // b) seleccionados (que pasan a estar libres)
+    else if(tipoDeAsiento(elementoHTML)==SELECCIONADO){
+      // La acción implica los siguientes cambios:
+      // Modicamos el estilo del asiento seleccionado para que ilustre su tipo
+      asientos[indice]=LIBRE;
+      asientoHTML.classList=valorClassDeAsientoLIBRE;
+    } 
+  }
+  // se actualiza el almacen local (LocalStorage) para reflejar el cambio en el asiento seleccionado
+  actualizaAsientosEnAlmacenLocal();
+  // se actualiza el panel informativo a partir de la información actualizada en el almacen local
+  actualizaPanelDeInformacion();
 }
 
 // -------------------------------------------------------------------------
 // FUNCIONES AUXILIARES PARA GESTIONAR EL ALMACEN LOCAL (localStorage)
 
-function ___recuperaAsientosDelAlmacenLocal() {
+function recuperaAsientosDelAlmacenLocal() {
   // Devuelve el contendio del ítem  asientos de localStorage
+  return JSON.parse(localStorage.getItem("asientos"));
 }
 
-function ___actualizaAsientosEnAlmacenLocal(asientos) {
+function actualizaAsientosEnAlmacenLocal(asientos) {
   // Actualiza el ítem asientos de localStorage con el parametro asientos
+  localStorage.setItem("asientos",JSON.stringify(asientos));
 }
 
 // -------------------------------------------------------------------------
