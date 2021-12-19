@@ -219,29 +219,31 @@ function pagarReservas() {
 
 //  Funciones para efectuar la reserva (seleccion de asientos y espectaculo)
 function actualizaTipoDeAsiento(asientoHTML) {
+  const asientos = recuperaAsientosDelAlmacenLocal();
   // Para efectuar la actualizacion debemos:
   //  recuperar del almacen local el item asientos
   //  identificar (data-index) el asiento al que está vinculado el parametro asientoHTML 
   indice = asientoHTML.getAttribute("data-index");
+  console.log(indice)
   if (indice!=null){
     // Las actualizaciones factibles son aquellas que se efectúan sobre asientos
     // a) libres (que pasan a estar seleccionados)
-    if(tipoDeAsiento(asientoHTML)==LIBRE){
+    if(asientos[indice]==LIBRE){
       // La acción implica los siguientes cambios:
       // Modicamos el estilo del asiento seleccionado para que ilustre su tipo
       asientos[indice]=SELECCIONADO;
       asientoHTML.classList=valorClassDeAsientoSELECCIONADO;
     }
     // b) seleccionados (que pasan a estar libres)
-    else if(tipoDeAsiento(elementoHTML)==SELECCIONADO){
+    else if(asientos[indice]==SELECCIONADO){
       // La acción implica los siguientes cambios:
       // Modicamos el estilo del asiento seleccionado para que ilustre su tipo
       asientos[indice]=LIBRE;
       asientoHTML.classList=valorClassDeAsientoLIBRE;
-    } 
+    }
   }
   // se actualiza el almacen local (LocalStorage) para reflejar el cambio en el asiento seleccionado
-  actualizaAsientosEnAlmacenLocal();
+  actualizaAsientosEnAlmacenLocal(asientos);
   // se actualiza el panel informativo a partir de la información actualizada en el almacen local
   actualizaPanelDeInformacion();
 }
