@@ -8,6 +8,9 @@
   box-sizing: border-box;
   outline: 1px solid red;
 }
+/*FUENTE*/
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500&family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
 :root {
   --color-fondo: hsl(0, 5%, 95%);
 
@@ -19,13 +22,13 @@
   --color-secundario: hsl(70, 40%, 90%);
   --color-sobre-secundario: hsl(2, 0%, 0%);
 
-  --fuente-primaria: sans-serif;
-  --fuente-secuendaria: serif;
+  --fuente-primaria: Roboto;
+  --fuente-secuendaria: Lato;
 
   --color-pantalla: hsl(0, 100%, 100%);
   --color-asiento-libre: hsl(0, 50%, 100%);
   --color-asiento-ocupado: hsl(0, 50%, 80%);
-  --color-asiento-seleccionado: hsl(0, 50%, 40%);
+  --color-asiento-seleccionado: hsl(144, 50%, 40%);
 
   --dimension-asiento: 1.5em;
 }
@@ -52,10 +55,10 @@ body {
                        ". reserva ."
                        ". controles ."
   ;
-  grid-template-rows: min-content 12rem min-content min-content 1.5rem 2rem;
+  grid-template-rows: min-content 12em min-content min-content 1.5em 2em;
 
 
-  row-gap: 1rem;
+  row-gap: 1em;
   width: clamp(600px, 80vw, 800px);
 }
 
@@ -70,7 +73,6 @@ body {
   color: var(--color-sobre-primario);
   justify-items: center;
   align-items: center;
-  justify-content: center;
   text-transform: uppercase;
   font-size: 1.2rem;
 }
@@ -82,7 +84,7 @@ body {
   display:grid;
   background-color: var(--color-primario);
   color: var(--color-sobre-primario);
-  column-gap: 1rem;
+  column-gap: 1em;
   grid-template-areas: ". pelicula pelicula ."
                        ". director director ."
                        ". cine sala ."
@@ -92,7 +94,7 @@ body {
   border-radius:15px;
   margin: 1%;
   align-items: center;
-  row-gap: 1rem;
+  row-gap: 1em;
 
 }
 
@@ -139,8 +141,8 @@ body {
 .leyendas {
   grid-area:leyenda;
   display:grid;
-  width:20rem;
-  column-gap: 1rem;
+  width:20em;
+  column-gap: 1em;
   margin: auto auto;
   grid-template-columns: auto auto auto;
   background-color: var(--color-primario);
@@ -162,7 +164,7 @@ body {
 .sala {
   grid-area:sala;
   margin: auto auto;
-  width: 15rem;
+  width: 15em;
   background-color: var(--color-primario);
   border-radius:20px;
 }
@@ -170,8 +172,8 @@ body {
 .sala__pantalla {
   margin: auto auto;
   background-color: var(--color-pantalla);
-  width: 10.5rem;
-  height: 5rem;
+  width: 10.5em;
+  height: 5em;
   /* Declaración por defecto (es innecesaria)
      Se incluye para indicar que no puede modificada. */
   /*-----*/
@@ -179,7 +181,7 @@ body {
 }
 
 .sala__aforo {
-  margin: 1rem 1rem;
+  margin: 1em 1em;
 } 
 
 /**********************************************************************/
@@ -188,7 +190,7 @@ body {
   margin: auto auto;
   text-align:center;
   grid-area:reserva;
-  width: 15rem;
+  width: 15em;
   display:grid;
   grid-template-columns: auto auto;
   background-color: var(--color-primario);
@@ -210,11 +212,15 @@ body {
 
 .controles {
   margin: auto auto;
+  display:flex;
+
   grid-area:controles;
-  width: 10rem;
+  width: 10em;
+  height: 3em;
   background-color: var(--color-primario);
   color: var(--color-sobre-primario);
-  text-align: center;
+  align-items:center;
+  justify-content:center;
 
 }
 
@@ -234,7 +240,7 @@ body {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 
-  margin: 0.5rem 0.5rem;
+  margin: 0.5em 0.5em;
 }
 
 .asiento--ocupado {
